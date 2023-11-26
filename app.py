@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -38,5 +38,17 @@ def get_purchase_orders_by_id(id):
             return jsonify(po)
         else:
             return jsonify({'message': f'Pedido {id} não encontrado'})
+        
+@app.route('/purchase-orders', methods=['POST'])
+def create_purchase_order():
+    request_data = request.get_json()
+    purchase_order = {
+        'id': request_data['id'],
+        'description': request_data['description'],
+        'items': []
+    }
+
+    purchase_orders.append(purchase_order)
+    return jsonify(purchase_order)
 
 app.run(port=5000)
