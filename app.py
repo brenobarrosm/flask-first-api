@@ -18,7 +18,6 @@ purchase_orders = [
     }
 ]
 
-
 #GET purchase_orders
 @app.route('/purchase-orders')
 def get_purchase_orders():
@@ -55,6 +54,20 @@ def get_purchase_orders_items(id):
     return jsonify({'message': f'Pedido {id} não encontrado :('})
 
 #POST purchase_orders_items
+@app.route('/purchase-orders/<int:id>/items', methods=['POST'])
+def create_purchase_orders_items(id):
+    request_data = request.get_json()
+    for po in purchase_orders:
+        if po['id'] == id:
+            item = {
+                'id': request_data['id'],
+                'description': request_data['description'],
+                'price': request_data['price']
+            }
+            po['items'].append(item)
+            return jsonify(po)
+    
+    return jsonify({'message': f'Pedido {id} não encontrado :('})
 
 @app.route('/')
 def home():
