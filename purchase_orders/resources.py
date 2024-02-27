@@ -1,15 +1,15 @@
 from flask import jsonify
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 
 purchase_orders = [
     {
         'id': 1,
-        'description': 'Pedido de Compra 1',
+        'description': 'Descrição do Item 01',
         'items': [
             {
                 'id': 1,
-                'description': 'Item 1 do Pedido 1',
-                'price': 22.90
+                'description': 'Item do Pedido 01',
+                'price': 19.90
             }
         ]
     }
@@ -17,42 +17,5 @@ purchase_orders = [
 
 class PurchaseOrders(Resource):
 
-    parser = reqparse.RequestParser()
-
-    parser.add_argument(
-        'id',
-        type=int,
-        required=True,
-        help="Informe um ID"
-    )
-
-    parser.add_argument(
-        'description',
-        type=str,
-        required=True,
-        help="Informe uma descrição"
-    )
-
     def get(self):
         return jsonify(purchase_orders)
-    
-    def post(self):
-        req_data = PurchaseOrders().parser.parse_args()
-
-        po = {
-            'id': req_data['id'],
-            'description': req_data['description'],
-            'items': []
-        }
-
-        purchase_orders.append(po)
-
-        return po
-    
-class PurchaseOrdersById(Resource):
-    def get(self, id):
-        for po in purchase_orders:
-            if po['id'] == id:
-                return jsonify(po)
-            
-        return jsonify({'message': f'Pedido {id} não encontrado :('})
