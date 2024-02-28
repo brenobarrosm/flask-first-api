@@ -52,3 +52,5 @@ def test_get_purchase_order_by_id(test_client):
 def test_get_purchase_order_not_found(test_client):
     id = 111
     response = test_client.get(f'/purchase-orders/{id}')
+
+    assert response.status_code == 200
