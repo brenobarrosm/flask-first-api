@@ -8,3 +8,19 @@ class PurchaseOrderModel(db.Model):
 
     def __init__(self, description):
         self.description = description
+
+    # Iterates over the columns of a table to create a dict
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    @classmethod #The first argument of the function will be the instance of the class
+    def find_all(cls):
+        return cls.query.all()
+    
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
