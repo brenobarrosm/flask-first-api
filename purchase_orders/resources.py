@@ -1,7 +1,7 @@
 from flask import jsonify
 from flask_restful import Resource, reqparse
 
-from .model import PurchaseOrderModel
+from .model import PurchaseOrdersModel
 
 class PurchaseOrders(Resource):
 

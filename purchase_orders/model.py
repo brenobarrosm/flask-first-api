@@ -1,6 +1,6 @@
 from db import db
 
-class PurchaseOrderModel(db.Model):
+class PurchaseOrdersModel(db.Model):
     __tablename__ = 'purchase_order'
 
     id = db.Column(db.Integer, primary_key=True)
