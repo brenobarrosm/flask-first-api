@@ -14,13 +14,13 @@ class PurchaseOrders(Resource):
     )
 
     def get(self):
-        purchase_orders = PurchaseOrderModel.find_all()
+        purchase_orders = PurchaseOrdersModel.find_all()
         return [po.as_dict() for po in purchase_orders]
     
     def post(self):
         data = PurchaseOrders.parser.parse_args()
 
-        purchase_order = PurchaseOrderModel(**data)
+        purchase_order = PurchaseOrdersModel(**data)
         purchase_order.save()
 
         return purchase_order.as_dict()
@@ -28,7 +28,7 @@ class PurchaseOrders(Resource):
 class PurchaseOrderById(Resource):
 
     def get(self, id):
-        purchase_order = PurchaseOrderModel.find_by_id(id)
+        purchase_order = PurchaseOrdersModel.find_by_id(id)
         if purchase_order:
             return purchase_order.as_dict()
         return jsonify({'message': 'Informe um ID válido.'})
