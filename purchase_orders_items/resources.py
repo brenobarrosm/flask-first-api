@@ -21,9 +21,13 @@ class PurchaseOrdersItems(Resource):
     )
 
     def get(self, id):
-        purchase_order_items = PurchaseOrdersItemsModel.find_by_purchase_order_id(id)
-
-        return [i.as_dict() for i in purchase_order_items]
+        purchase_order = PurchaseOrdersModel.find_by_id(id)
+        
+        if purchase_order:
+            purchase_order_items = PurchaseOrdersItemsModel.find_by_purchase_order_id(id)
+            return [i.as_dict() for i in purchase_order_items]
+        
+        return jsonify({'message': 'Informe um ID válido.'})
     
     def post(self, id):
 
