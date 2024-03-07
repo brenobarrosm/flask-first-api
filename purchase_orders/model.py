@@ -5,9 +5,11 @@ class PurchaseOrdersModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(500), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, description):
+    def __init__(self, description, quantity):
         self.description = description
+        self.quantity = quantity
 
     # Iterates over the columns of a table to create a dict
     def as_dict(self):
