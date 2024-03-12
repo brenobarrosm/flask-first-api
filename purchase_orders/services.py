@@ -8,7 +8,7 @@ class PurchaseOrderService:
         return [po.as_dict() for po in purchase_orders]
     
     def create(self, **kwargs):
-        purchase_order = PurchaseOrdersModel(kwargs)
+        purchase_order = PurchaseOrdersModel(**kwargs)
         purchase_order.save()
 
         return purchase_order.as_dict() 
